@@ -10,6 +10,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from Django.contrib.auth.models import User
 
 class Genres(models.Model):
     movieid = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=False, primary_key=True)
@@ -46,3 +47,21 @@ class Movies(models.Model):
     class Meta:
         db_table = 'movies'
 
+class UserProfile(models.Model):
+    #link the profile to the user.
+    user = models.OneToOneField(User) 					#A
+
+    externalUserId = models.IntegerField(blank=False)
+    gender = models.BinaryField(blank=True)
+    age = models.IntegerField(blank=True, null=True)
+    nationality = models.CharField(max_length=50, blank=True)
+    living_country = models.CharField(max_length=50, blank=True)
+    living_city = models.CharField(max_length=50, blank=True)
+    martialstatus = models.CharField(max_length=20, blank=True)
+    hobby = models.CharField(max_length=250, blank=True)
+    eating_habits = models.CharField(max_length=150, blank=True)
+    additionals = models.CharField(max_length=250, blank=True) 		#B
+
+      # Override the __unicode__() method to return out something meaningful!
+    def __unicode__(self):
+        return self.user.username
