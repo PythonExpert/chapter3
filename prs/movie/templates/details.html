@@ -1,0 +1,35 @@
+{% extends "master.html" %}
+{% block title %}{{movie.title}} details{% endblock title %}
+{% block main %}
+  {% if movie %} 
+      <div class="tumbnail" 
+           data-html="true" 
+           data-contentid ="{{movie.id}}" 
+           data-userid = "42">
+        <h1>{{movie.title}}</h1>
+        
+          <img src="{{movie.rtpictureurl.strip}}" />
+        <br/>
+        <div class="caption" id="details">
+        </div>
+        <ul>
+          <li>
+            <a href="http://www.imdb.com/title/tt0{{movie.imdbid}}/" >Details on IMDB</a></li>
+          <li>
+        <a id="buy" href="http://www.amazon.co.uk/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords={{movie.title}}">
+          buy</a></li>
+        </ul>
+        {% else %}
+            <p>No movies available.</p>
+      </div>
+  {% endif %}
+  
+  <div style="text-align: center">Filmography links and data courtesy of
+  <a href="http://www.imdb.com/">IMDb</a>.</div>
+  <script type="text/javascript">
+        $.getJSON("http://www.imdbapi.com/?r=json\\&t={{movie.title}}", function(result){
+            $('#details').html(result.Plot);
+        });
+   </script>
+
+{% endblock main %}

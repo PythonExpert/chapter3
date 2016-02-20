@@ -1,0 +1,72 @@
+{% extends "master.html" %}
+{% block main %}
+   {% if movies %}
+     <table>
+        <tr>
+            {% for movie in movies %}
+                <td class="td_movie" 
+                    data-movie-item="{{movie.id}}">
+                    <img class="movie" 
+                        tabindex="0" 
+                        role="button" 
+                        data-html="true" 
+                        data-toggle="popover" 
+                        data-trigger="focus" 
+                        title="{{ movie.title}}" 
+                        data-contentid="{{movie.id}}" 
+                        data-content="
+                            Year: {{movie.year}} 
+                            <br/>
+                            Rotten Tomate rating: {{ movie.rtallcriticsrating }} 
+                            <br /> 
+                            <a onclick='PostSaveForLaterEvidence(this)' 
+                               href='#' 
+                               data-html='true' 
+                               data-sessionid='{{sessionid}}'
+                               data-contentid='{{movie.id}}' 
+                               data-userid = '{{user_id}}'>save for later</a> 
+                            <br />
+                            <a href='/movie/{{movie.id}}' 
+                            data-html='true' 
+                            data-contentid='{{movie.id}}'' 
+                            data-userid = '{{user_id}}'  onclick='PostMoreDetailsEvent(this)'
+                            >more details</a>" 
+                    src="{{movie.rtpictureurl.strip}}" />
+                </td>
+                {% if forloop.counter|divisibleby:5 %}
+                    </tr><br/><tr>
+                {% endif  %}
+            {% endfor %}
+        </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if movies.has_previous %}
+            <a href="{{ url }}??page={{ movies.previous_page_number }}" >previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ movies.number }} of {{ movies.paginator.num_pages }}.
+            </span>
+
+            {% if movies.has_next %}
+            <a href="{{ url }}?page={{ movies.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+        {% else %}
+            <p>No movies available.</p>
+    {% endif %}
+    <p>Number of movies found: {{number_of_movies}}</p>
+{% endblock main %}
+
+{% block section%}
+{% if not genres %}
+        No genres found
+{% else %}
+  {% for genre in genres %}
+    <a onclick='PostEvent({{genre.genre}}, "genre")' 
+    href="/genre/{{genre.genre.strip}}?sessionid={{sessionId}}&userid={{user_id}}">{{genre.genre}}</a><br />
+  {% endfor %}
+{% endif %}
+{% endblock section%}
+
