@@ -1,4 +1,4 @@
-function postEvidence(user_id, content_id, event) {
+function postEvidence(user_id, content_id, session_id, event) {
 
     var now = new Date();
     var dateString = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate() + ' ' + now.getUTCHours() + ':' + now.getMinutes(); 
@@ -7,7 +7,8 @@ function postEvidence(user_id, content_id, event) {
           url: 'http://moviegeek.com:8000/log/' + content_id 
           		+ '/' + event 
           		+ '?date=' + dateString 
-          		+ '&sessionid={{sessionId}}&userid={{user_id}}' ,  
+          		+ '&sessionid=' + session_id
+          		+ '&userid=' + user_id ,
     
           error: function(req, status, ex) { 
 	          console.error("exception: " + ex);

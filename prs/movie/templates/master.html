@@ -18,14 +18,14 @@
 
         $('.movie').on('show.bs.popover', function () {
             contentid = $(this).attr("data-contentid");
-            postEvidence(userid,contentid, sessionid,"details");
+            PostEvent(contentid,"details");
               });
       });
       function PostEvent(contentid, eventType){
         var userid;
         var contentid;
-        sessionid = "{{sessionid}}";
-        userid = "{{userid}}";      
+        sessionid = '{{sessionid}}';
+        userid = '{{user_id}}';
         postEvidence(userid, contentid, sessionid, eventType);
       }
 
@@ -44,19 +44,33 @@
  </head>
 
  <body>
-   {% block header %}
-    <div id="header">
-      <h1>Movie GEEKS</h1>
+    <div class="wrapper">
+        <div class="inner">
+       {% block header %}
+        <header id="header">
+           <div class="container">
+            <div class="header_left"><h1>Movie GEEKs</h1> </div>
+            <div class="header_right">
+                {% if user.is_authenticated %}
+                <h4>Welcome {{ user.username }}!</h4>
+                <a href="logout">logout</a>
+                {% else %}
+                <h4>Welcome somebody!</h4> <br/>
+                <a href="login">login</a> | <a href="register">register</a>
+                {% endif %}
+            </div>
+           </div>
+        </header>
+       {% endblock header %}
+       <div class="nav">
+      {% block section%}
+      {% endblock section%}
+       </div>
+       <div id="section">
+       {% block main %}
+       {% endblock %}
+        </div>
+        </div>
     </div>
-   {% endblock header %}
-   <div id="nav">
-  {% block section%}
-  {% endblock section%}
-   </div>
-   <div id="section">
-   {% block main %}
-
-   {% endblock %}
- </div>
  </body>
 </html>
