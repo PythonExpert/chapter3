@@ -9,8 +9,9 @@ def index(request, contentid, event):
 
     sessionId = request.GET.get('sessionid', 0)
     userid = request.GET.get('userid', 0)
-    date =  request.GET.get('date', datetime.datetime.now().isoformat())
+    date = request.GET.get('date', datetime.datetime.now().isoformat())
     visitCount = request.GET.get('visitCount', 0)
+
     l = Log(created=date, \
     	    user_id = userid, \
     	    content_id = contentid, \

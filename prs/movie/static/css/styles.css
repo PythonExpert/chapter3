@@ -8,7 +8,7 @@
     padding: 0 0 150px;
     margin: 0 auto;
     width: 94%;
-    max-width: 900px;
+    max-width: 1200px;
 }
 
 header {
@@ -16,10 +16,10 @@ header {
     color:white;
     text-align:center;
     padding:5px;
-    max-width: 750px;
+    max-width: 900px;
 }
 .container{
-    max-width: 750px;
+    max-width: 900px;
 }
 .nav {
     line-height:30px;
@@ -62,7 +62,7 @@ section {
 .movie_area {
     margin: 0px;
     display: block;
-    max-width: 800px;
+    max-width: 700px;
 }
 .pagination {
     display: block;
